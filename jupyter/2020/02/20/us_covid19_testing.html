@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>US COVID-19 Testing | fastpages</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="US COVID-19 Testing" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Surfacing test growth in the United States" />
+<meta property="og:description" content="Surfacing test growth in the United States" />
+<link rel="canonical" href="https://lawwu.github.io/data-science-musings/jupyter/2020/02/20/us_covid19_testing.html" />
+<meta property="og:url" content="https://lawwu.github.io/data-science-musings/jupyter/2020/02/20/us_covid19_testing.html" />
+<meta property="og:site_name" content="fastpages" />
+<meta property="og:image" content="https://lawwu.github.io/data-science-musings/images/chart-preview.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-02-20T00:00:00-06:00" />
+<script type="application/ld+json">
+{"datePublished":"2020-02-20T00:00:00-06:00","dateModified":"2020-02-20T00:00:00-06:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://lawwu.github.io/data-science-musings/jupyter/2020/02/20/us_covid19_testing.html"},"description":"Surfacing test growth in the United States","image":"https://lawwu.github.io/data-science-musings/images/chart-preview.png","@type":"BlogPosting","url":"https://lawwu.github.io/data-science-musings/jupyter/2020/02/20/us_covid19_testing.html","headline":"US COVID-19 Testing","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/data-science-musings/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://lawwu.github.io/data-science-musings/feed.xml" title="fastpages" /><link rel="shortcut icon" type="image/x-icon" href="/data-science-musings/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>US COVID-19 Testing | fastpages</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="US COVID-19 Testing" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Surfacing test growth in the United States" />
+<meta property="og:description" content="Surfacing test growth in the United States" />
+<link rel="canonical" href="https://lawwu.github.io/data-science-musings/jupyter/2020/02/20/us_covid19_testing.html" />
+<meta property="og:url" content="https://lawwu.github.io/data-science-musings/jupyter/2020/02/20/us_covid19_testing.html" />
+<meta property="og:site_name" content="fastpages" />
+<meta property="og:image" content="https://lawwu.github.io/data-science-musings/images/chart-preview.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-02-20T00:00:00-06:00" />
+<script type="application/ld+json">
+{"datePublished":"2020-02-20T00:00:00-06:00","dateModified":"2020-02-20T00:00:00-06:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://lawwu.github.io/data-science-musings/jupyter/2020/02/20/us_covid19_testing.html"},"description":"Surfacing test growth in the United States","image":"https://lawwu.github.io/data-science-musings/images/chart-preview.png","@type":"BlogPosting","url":"https://lawwu.github.io/data-science-musings/jupyter/2020/02/20/us_covid19_testing.html","headline":"US COVID-19 Testing","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://lawwu.github.io/data-science-musings/feed.xml" title="fastpages" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head><body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/data-science-musings/">fastpages</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/data-science-musings/about/">About Me</a><a class="page-link" href="/data-science-musings/search/">Search</a><a class="page-link" href="/data-science-musings/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">US COVID-19 Testing</h1><p class="page-description">Surfacing test growth in the United States</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-02-20T00:00:00-06:00" itemprop="datePublished">
+        Feb 20, 2020
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      1 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/data-science-musings/categories/#jupyter">jupyter</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/lawwu/data-science-musings/tree/master/_notebooks/2020-02-20-us_covid19_testing.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/data-science-musings/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/lawwu/data-science-musings/master?filepath=_notebooks%2F2020-02-20-us_covid19_testing.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/data-science-musings/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/lawwu/data-science-musings/blob/master/_notebooks/2020-02-20-us_covid19_testing.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/data-science-musings/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#Total-tests-done-positive-rate-(at-a-daily-level)">Total tests done positive rate (at a daily level) </a></li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2020-02-20-us_covid19_testing.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">StringIO</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">altair</span> <span class="k">as</span> <span class="nn">alt</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># us_daily = pd.read_csv('https://covidtracking.com/api/us/daily.csv')</span>
+<span class="c1"># doesn't work sep=";")</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'User-Agent'</span><span class="p">:</span> <span class="s1">'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36'</span><span class="p">}</span>
+
+<span class="n">us_daily_url</span><span class="o">=</span><span class="s2">"https://covidtracking.com/api/us/daily.csv"</span>
+<span class="n">s</span><span class="o">=</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">us_daily_url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span> <span class="n">headers</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># s</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'date,states,positive,negative,posNeg,pending,death,total\n20200304,14,118,748,866,103,,969\n20200305,24,176,953,1129,197,,1326\n20200306,36,223,1571,1794,458,,2252\n20200307,51,341,1809,2150,602,,2752\n20200308,51,417,2335,2752,347,,3099\n20200309,51,584,3367,3951,313,,4264\n20200310,51,778,3807,4585,469,,5054\n20200311,51,1053,5978,7031,563,27,7617\n20200312,51,1315,7949,9264,673,36,9966\n20200313,51,1922,13613,15535,1130,39,16665\n20200314,51,2450,17102,19552,1236,49,20789\n20200315,51,3173,22548,25721,2242,60,27963\n20200316,56,4019,36104,40123,1691,71,41714\n20200317,56,5723,47604,53327,1687,90,54957\n20200318,56,7731,66225,73956,2538,112,76495\n20200319,56,11723,89119,100842,3025,160,103867'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">us_daily</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">StringIO</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">us_daily</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>date</th>
+      <th>states</th>
+      <th>positive</th>
+      <th>negative</th>
+      <th>posNeg</th>
+      <th>pending</th>
+      <th>death</th>
+      <th>total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>20200304</td>
+      <td>14</td>
+      <td>118</td>
+      <td>748</td>
+      <td>866</td>
+      <td>103</td>
+      <td>NaN</td>
+      <td>969</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>20200305</td>
+      <td>24</td>
+      <td>176</td>
+      <td>953</td>
+      <td>1129</td>
+      <td>197</td>
+      <td>NaN</td>
+      <td>1326</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>20200306</td>
+      <td>36</td>
+      <td>223</td>
+      <td>1571</td>
+      <td>1794</td>
+      <td>458</td>
+      <td>NaN</td>
+      <td>2252</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>20200307</td>
+      <td>51</td>
+      <td>341</td>
+      <td>1809</td>
+      <td>2150</td>
+      <td>602</td>
+      <td>NaN</td>
+      <td>2752</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>20200308</td>
+      <td>51</td>
+      <td>417</td>
+      <td>2335</td>
+      <td>2752</td>
+      <td>347</td>
+      <td>NaN</td>
+      <td>3099</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>20200309</td>
+      <td>51</td>
+      <td>584</td>
+      <td>3367</td>
+      <td>3951</td>
+      <td>313</td>
+      <td>NaN</td>
+      <td>4264</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>20200310</td>
+      <td>51</td>
+      <td>778</td>
+      <td>3807</td>
+      <td>4585</td>
+      <td>469</td>
+      <td>NaN</td>
+      <td>5054</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>20200311</td>
+      <td>51</td>
+      <td>1053</td>
+      <td>5978</td>
+      <td>7031</td>
+      <td>563</td>
+      <td>27.0</td>
+      <td>7617</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>20200312</td>
+      <td>51</td>
+      <td>1315</td>
+      <td>7949</td>
+      <td>9264</td>
+      <td>673</td>
+      <td>36.0</td>
+      <td>9966</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>20200313</td>
+      <td>51</td>
+      <td>1922</td>
+      <td>13613</td>
+      <td>15535</td>
+      <td>1130</td>
+      <td>39.0</td>
+      <td>16665</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>20200314</td>
+      <td>51</td>
+      <td>2450</td>
+      <td>17102</td>
+      <td>19552</td>
+      <td>1236</td>
+      <td>49.0</td>
+      <td>20789</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>20200315</td>
+      <td>51</td>
+      <td>3173</td>
+      <td>22548</td>
+      <td>25721</td>
+      <td>2242</td>
+      <td>60.0</td>
+      <td>27963</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>20200316</td>
+      <td>56</td>
+      <td>4019</td>
+      <td>36104</td>
+      <td>40123</td>
+      <td>1691</td>
+      <td>71.0</td>
+      <td>41714</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>20200317</td>
+      <td>56</td>
+      <td>5723</td>
+      <td>47604</td>
+      <td>53327</td>
+      <td>1687</td>
+      <td>90.0</td>
+      <td>54957</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>20200318</td>
+      <td>56</td>
+      <td>7731</td>
+      <td>66225</td>
+      <td>73956</td>
+      <td>2538</td>
+      <td>112.0</td>
+      <td>76495</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>20200319</td>
+      <td>56</td>
+      <td>11723</td>
+      <td>89119</td>
+      <td>100842</td>
+      <td>3025</td>
+      <td>160.0</td>
+      <td>103867</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">us_daily</span><span class="p">[</span><span class="s1">'tests_done_daily'</span><span class="p">]</span> <span class="o">=</span> <span class="n">us_daily</span><span class="p">[</span><span class="s1">'total'</span><span class="p">]</span> <span class="o">-</span> <span class="n">us_daily</span><span class="p">[</span><span class="s1">'total'</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">us_daily</span><span class="p">[</span><span class="s1">'positive_daily'</span><span class="p">]</span> <span class="o">=</span> <span class="n">us_daily</span><span class="p">[</span><span class="s1">'positive'</span><span class="p">]</span> <span class="o">-</span> <span class="n">us_daily</span><span class="p">[</span><span class="s1">'positive'</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">us_daily</span><span class="p">[</span><span class="s1">'positive_rate_daily'</span><span class="p">]</span> <span class="o">=</span> <span class="n">us_daily</span><span class="p">[</span><span class="s1">'positive_daily'</span><span class="p">]</span> <span class="o">/</span> <span class="n">us_daily</span><span class="p">[</span><span class="s1">'tests_done_daily'</span><span class="p">]</span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">us_daily</span><span class="p">[</span><span class="s1">'date'</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">us_daily</span><span class="p">[</span><span class="s1">'date'</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s1">'%Y%m</span><span class="si">%d</span><span class="s1">'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># from vega_datasets import data</span>
+
+<span class="c1"># source = data.stocks()</span>
+<span class="c1"># source</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>symbol</th>
+      <th>date</th>
+      <th>price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>MSFT</td>
+      <td>2000-01-01</td>
+      <td>39.81</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>MSFT</td>
+      <td>2000-02-01</td>
+      <td>36.35</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>MSFT</td>
+      <td>2000-03-01</td>
+      <td>43.22</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>MSFT</td>
+      <td>2000-04-01</td>
+      <td>28.37</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>MSFT</td>
+      <td>2000-05-01</td>
+      <td>25.45</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>555</th>
+      <td>AAPL</td>
+      <td>2009-11-01</td>
+      <td>199.91</td>
+    </tr>
+    <tr>
+      <th>556</th>
+      <td>AAPL</td>
+      <td>2009-12-01</td>
+      <td>210.73</td>
+    </tr>
+    <tr>
+      <th>557</th>
+      <td>AAPL</td>
+      <td>2010-01-01</td>
+      <td>192.06</td>
+    </tr>
+    <tr>
+      <th>558</th>
+      <td>AAPL</td>
+      <td>2010-02-01</td>
+      <td>204.62</td>
+    </tr>
+    <tr>
+      <th>559</th>
+      <td>AAPL</td>
+      <td>2010-03-01</td>
+      <td>223.02</td>
+    </tr>
+  </tbody>
+</table>
+<p>560 rows × 3 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Total-tests-done-positive-rate-(at-a-daily-level)">
+<a class="anchor" href="#Total-tests-done-positive-rate-(at-a-daily-level)" aria-hidden="true"><span class="octicon octicon-link"></span></a>Total tests done positive rate (at a daily level)<a class="anchor-link" href="#Total-tests-done-positive-rate-(at-a-daily-level)"> </a>
+</h1>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">base</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">us_daily</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">'date:O'</span><span class="p">)</span>
+<span class="n">bar</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s1">'tests_done_daily:Q'</span><span class="p">)</span>
+<span class="n">line</span> <span class="o">=</span>  <span class="n">base</span><span class="o">.</span><span class="n">mark_line</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">'red'</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
+    <span class="n">y</span><span class="o">=</span><span class="s1">'positive_rate_daily:Q'</span>
+<span class="p">)</span>
+<span class="p">(</span><span class="n">bar</span> <span class="o">+</span> <span class="n">line</span><span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span><span class="o">.</span><span class="n">resolve_scale</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s1">'independent'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+
+<div id="altair-viz-6c3feb958bfc49d1a51247beb3b15979"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    const outputDiv = document.getElementById("altair-viz-6c3feb958bfc49d1a51247beb3b15979");
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.0.2?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": "bar", "encoding": {"x": {"type": "ordinal", "field": "date"}, "y": {"type": "quantitative", "field": "tests_done_daily"}}}, {"mark": {"type": "line", "color": "red"}, "encoding": {"x": {"type": "ordinal", "field": "date"}, "y": {"type": "quantitative", "field": "positive_rate_daily"}}}], "data": {"name": "data-e0111c2a0ae440b61182a7025e9b63fd"}, "resolve": {"scale": {"y": "independent"}}, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.2.json", "datasets": {"data-e0111c2a0ae440b61182a7025e9b63fd": [{"date": "2020-03-04T00:00:00", "states": 14, "positive": 118, "negative": 748, "posNeg": 866, "pending": 103, "death": null, "total": 969, "tests_done_daily": null, "positive_daily": null, "positive_rate_daily": null}, {"date": "2020-03-05T00:00:00", "states": 24, "positive": 176, "negative": 953, "posNeg": 1129, "pending": 197, "death": null, "total": 1326, "tests_done_daily": 357.0, "positive_daily": 58.0, "positive_rate_daily": 0.16246498599439776}, {"date": "2020-03-06T00:00:00", "states": 36, "positive": 223, "negative": 1571, "posNeg": 1794, "pending": 458, "death": null, "total": 2252, "tests_done_daily": 926.0, "positive_daily": 47.0, "positive_rate_daily": 0.05075593952483801}, {"date": "2020-03-07T00:00:00", "states": 51, "positive": 341, "negative": 1809, "posNeg": 2150, "pending": 602, "death": null, "total": 2752, "tests_done_daily": 500.0, "positive_daily": 118.0, "positive_rate_daily": 0.236}, {"date": "2020-03-08T00:00:00", "states": 51, "positive": 417, "negative": 2335, "posNeg": 2752, "pending": 347, "death": null, "total": 3099, "tests_done_daily": 347.0, "positive_daily": 76.0, "positive_rate_daily": 0.21902017291066284}, {"date": "2020-03-09T00:00:00", "states": 51, "positive": 584, "negative": 3367, "posNeg": 3951, "pending": 313, "death": null, "total": 4264, "tests_done_daily": 1165.0, "positive_daily": 167.0, "positive_rate_daily": 0.14334763948497853}, {"date": "2020-03-10T00:00:00", "states": 51, "positive": 778, "negative": 3807, "posNeg": 4585, "pending": 469, "death": null, "total": 5054, "tests_done_daily": 790.0, "positive_daily": 194.0, "positive_rate_daily": 0.24556962025316456}, {"date": "2020-03-11T00:00:00", "states": 51, "positive": 1053, "negative": 5978, "posNeg": 7031, "pending": 563, "death": 27.0, "total": 7617, "tests_done_daily": 2563.0, "positive_daily": 275.0, "positive_rate_daily": 0.1072961373390558}, {"date": "2020-03-12T00:00:00", "states": 51, "positive": 1315, "negative": 7949, "posNeg": 9264, "pending": 673, "death": 36.0, "total": 9966, "tests_done_daily": 2349.0, "positive_daily": 262.0, "positive_rate_daily": 0.11153682418050234}, {"date": "2020-03-13T00:00:00", "states": 51, "positive": 1922, "negative": 13613, "posNeg": 15535, "pending": 1130, "death": 39.0, "total": 16665, "tests_done_daily": 6699.0, "positive_daily": 607.0, "positive_rate_daily": 0.09061053888640096}, {"date": "2020-03-14T00:00:00", "states": 51, "positive": 2450, "negative": 17102, "posNeg": 19552, "pending": 1236, "death": 49.0, "total": 20789, "tests_done_daily": 4124.0, "positive_daily": 528.0, "positive_rate_daily": 0.1280310378273521}, {"date": "2020-03-15T00:00:00", "states": 51, "positive": 3173, "negative": 22548, "posNeg": 25721, "pending": 2242, "death": 60.0, "total": 27963, "tests_done_daily": 7174.0, "positive_daily": 723.0, "positive_rate_daily": 0.10078059659882911}, {"date": "2020-03-16T00:00:00", "states": 56, "positive": 4019, "negative": 36104, "posNeg": 40123, "pending": 1691, "death": 71.0, "total": 41714, "tests_done_daily": 13751.0, "positive_daily": 846.0, "positive_rate_daily": 0.061522798341938766}, {"date": "2020-03-17T00:00:00", "states": 56, "positive": 5723, "negative": 47604, "posNeg": 53327, "pending": 1687, "death": 90.0, "total": 54957, "tests_done_daily": 13243.0, "positive_daily": 1704.0, "positive_rate_daily": 0.12867175111379597}, {"date": "2020-03-18T00:00:00", "states": 56, "positive": 7731, "negative": 66225, "posNeg": 73956, "pending": 2538, "death": 112.0, "total": 76495, "tests_done_daily": 21538.0, "positive_daily": 2008.0, "positive_rate_daily": 0.09323056922648343}, {"date": "2020-03-19T00:00:00", "states": 56, "positive": 11723, "negative": 89119, "posNeg": 100842, "pending": 3025, "death": 160.0, "total": 103867, "tests_done_daily": 27372.0, "positive_daily": 3992.0, "positive_rate_daily": 0.1458424667543475}]}}, {"mode": "vega-lite"});
+</script>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="lawwu/data-science-musings"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/data-science-musings/jupyter/2020/02/20/us_covid19_testing.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/data-science-musings/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/data-science-musings/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/data-science-musings/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>An easy to use blogging platform with support for Jupyter Notebooks.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/fastai" title="fastai"><svg class="svg-icon grey"><use xlink:href="/data-science-musings/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/fastdotai" title="fastdotai"><svg class="svg-icon grey"><use xlink:href="/data-science-musings/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
