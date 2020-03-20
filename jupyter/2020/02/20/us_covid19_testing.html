@@ -152,11 +152,15 @@ window.onload = wrap_img;
     
     
 <div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
 <div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">StringIO</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">StringIO</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">import</span> <span class="nn">altair</span> <span class="k">as</span> <span class="nn">alt</span>
@@ -166,35 +170,25 @@ window.onload = wrap_img;
 </div>
 </div>
 
+    </details>
 </div>
     
 
     
     
 <div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
 <div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># us_daily = pd.read_csv('https://covidtracking.com/api/us/daily.csv')</span>
-<span class="c1"># doesn't work sep=";")</span>
-</pre></div>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="c1"># us_daily = pd.read_csv('https://covidtracking.com/api/us/daily.csv')</span>
+<span class="c1"># doesn't work</span>
 
-    </div>
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'User-Agent'</span><span class="p">:</span> <span class="s1">'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36'</span><span class="p">}</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'User-Agent'</span><span class="p">:</span> <span class="s1">'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36'</span><span class="p">}</span>
 
 <span class="n">us_daily_url</span><span class="o">=</span><span class="s2">"https://covidtracking.com/api/us/daily.csv"</span>
 <span class="n">s</span><span class="o">=</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">us_daily_url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span> <span class="n">headers</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
@@ -204,56 +198,29 @@ window.onload = wrap_img;
 </div>
 </div>
 
+    </details>
 </div>
     
 
     
     
 <div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
 <div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># s</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="n">us_daily</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">StringIO</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
 </pre></div>
 
     </div>
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>'date,states,positive,negative,posNeg,pending,death,total\n20200304,14,118,748,866,103,,969\n20200305,24,176,953,1129,197,,1326\n20200306,36,223,1571,1794,458,,2252\n20200307,51,341,1809,2150,602,,2752\n20200308,51,417,2335,2752,347,,3099\n20200309,51,584,3367,3951,313,,4264\n20200310,51,778,3807,4585,469,,5054\n20200311,51,1053,5978,7031,563,27,7617\n20200312,51,1315,7949,9264,673,36,9966\n20200313,51,1922,13613,15535,1130,39,16665\n20200314,51,2450,17102,19552,1236,49,20789\n20200315,51,3173,22548,25721,2242,60,27963\n20200316,56,4019,36104,40123,1691,71,41714\n20200317,56,5723,47604,53327,1687,90,54957\n20200318,56,7731,66225,73956,2538,112,76495\n20200319,56,11723,89119,100842,3025,160,103867'</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">us_daily</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">StringIO</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
+    </details>
 </div>
     
 
@@ -499,164 +466,25 @@ window.onload = wrap_img;
     
     
 <div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
 <div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">us_daily</span><span class="p">[</span><span class="s1">'tests_done_daily'</span><span class="p">]</span> <span class="o">=</span> <span class="n">us_daily</span><span class="p">[</span><span class="s1">'total'</span><span class="p">]</span> <span class="o">-</span> <span class="n">us_daily</span><span class="p">[</span><span class="s1">'total'</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="n">us_daily</span><span class="p">[</span><span class="s1">'tests_done_daily'</span><span class="p">]</span> <span class="o">=</span> <span class="n">us_daily</span><span class="p">[</span><span class="s1">'total'</span><span class="p">]</span> <span class="o">-</span> <span class="n">us_daily</span><span class="p">[</span><span class="s1">'total'</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">us_daily</span><span class="p">[</span><span class="s1">'positive_daily'</span><span class="p">]</span> <span class="o">=</span> <span class="n">us_daily</span><span class="p">[</span><span class="s1">'positive'</span><span class="p">]</span> <span class="o">-</span> <span class="n">us_daily</span><span class="p">[</span><span class="s1">'positive'</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">us_daily</span><span class="p">[</span><span class="s1">'positive_rate_daily'</span><span class="p">]</span> <span class="o">=</span> <span class="n">us_daily</span><span class="p">[</span><span class="s1">'positive_daily'</span><span class="p">]</span> <span class="o">/</span> <span class="n">us_daily</span><span class="p">[</span><span class="s1">'tests_done_daily'</span><span class="p">]</span> 
+<span class="n">us_daily</span><span class="p">[</span><span class="s1">'date'</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">us_daily</span><span class="p">[</span><span class="s1">'date'</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s1">'%Y%m</span><span class="si">%d</span><span class="s1">'</span><span class="p">)</span>
 </pre></div>
 
     </div>
 </div>
 </div>
 
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">us_daily</span><span class="p">[</span><span class="s1">'date'</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">us_daily</span><span class="p">[</span><span class="s1">'date'</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s1">'%Y%m</span><span class="si">%d</span><span class="s1">'</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># from vega_datasets import data</span>
-
-<span class="c1"># source = data.stocks()</span>
-<span class="c1"># source</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>symbol</th>
-      <th>date</th>
-      <th>price</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>MSFT</td>
-      <td>2000-01-01</td>
-      <td>39.81</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>MSFT</td>
-      <td>2000-02-01</td>
-      <td>36.35</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>MSFT</td>
-      <td>2000-03-01</td>
-      <td>43.22</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>MSFT</td>
-      <td>2000-04-01</td>
-      <td>28.37</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>MSFT</td>
-      <td>2000-05-01</td>
-      <td>25.45</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>555</th>
-      <td>AAPL</td>
-      <td>2009-11-01</td>
-      <td>199.91</td>
-    </tr>
-    <tr>
-      <th>556</th>
-      <td>AAPL</td>
-      <td>2009-12-01</td>
-      <td>210.73</td>
-    </tr>
-    <tr>
-      <th>557</th>
-      <td>AAPL</td>
-      <td>2010-01-01</td>
-      <td>192.06</td>
-    </tr>
-    <tr>
-      <th>558</th>
-      <td>AAPL</td>
-      <td>2010-02-01</td>
-      <td>204.62</td>
-    </tr>
-    <tr>
-      <th>559</th>
-      <td>AAPL</td>
-      <td>2010-03-01</td>
-      <td>223.02</td>
-    </tr>
-  </tbody>
-</table>
-<p>560 rows × 3 columns</p>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
+    </details>
 </div>
     
 
@@ -672,11 +500,15 @@ window.onload = wrap_img;
     
     
 <div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
 <div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">base</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">us_daily</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">'date:O'</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="n">base</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">us_daily</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">'date:O'</span><span class="p">)</span>
 <span class="n">bar</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s1">'tests_done_daily:Q'</span><span class="p">)</span>
 <span class="n">line</span> <span class="o">=</span>  <span class="n">base</span><span class="o">.</span><span class="n">mark_line</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">'red'</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
     <span class="n">y</span><span class="o">=</span><span class="s1">'positive_rate_daily:Q'</span>
@@ -688,6 +520,7 @@ window.onload = wrap_img;
 </div>
 </div>
 
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
